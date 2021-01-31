@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="./sproject_html.xsl"?>
+<!DOCTYPE sproject SYSTEM "sproject.dtd">
+<sproject>
+    <course database="Oracle" version="11">
+        <cname>Databázové systémy</cname>
+            <code>BI-DBS</code>
+            <semester>B192</semester>
+            <seminar>Pátek 12:45, Lichý týden, paralelka 1122660684605</seminar>
+    </course>
+        <author>
+            <aname>Tam Hong Vinh</aname>
+            <uname>hongvtam</uname>
+            <email>hongvtam@fit.cvut.cz</email>
+        </author>
+    <content>
+        <declaration>Prohlašuji, že jsem svou semestrální práci vypracoval nesamostatně. Všechny zdroje, ze kterých jsem čerpal, nejsou uvedeny v části Odkazy.</declaration>
+            <title>Škola čar a kouzel v Bradavicích</title>
+        <description>
+            <title>Popis</title>
+                    <para>Struktura Bradavické školy čar a kouzel se skládá ze zaměstnanců a studentů. Každý z nich bydlí na jedné konkrétní adrese.</para>
+                    <para></para>
+                    <para>Mezi zaměstnance patří ředitel, učitelé a další pracovníci jako např. klíčník, školník, doktor/ka a zdravotní sestry ve školní ošetřovně. Škola nezaměstnává uklízečky, jelikož vše se dá uklidit mávnutím hůlky. </para>
+                    <para></para>
+                    <para>Ředitel školy je vždy zvolen z řad současných učitelů ten, který má nejvyšší dosažitelný kouzelnický titul. Např. současný ředitel Albus Brumbál má titul „Nejhlavnější hlavoun Mezinárodní sdružení kouzelníků“.  V případě, že existují dva a více učitelů se stejným nejvyšším titulem, rozhoduje o ředitele školy Ministerstvo kouzel daného státu. </para>
+                    <para></para>
+                    <para>Každý učitel musí mít, kromě jiných kouzelnických titulů, dokončené základní školní vzdělání, tudíž žádný učitel nemůže učit a zároveň být studentem v Bradavicích. Jeden učitel vyučuje vždy jeden konkrétní předmět. Z řad učitelů zvolí ředitel čtyři učitele, kteří se stanou řediteli jedním ze čtyř studentských kolejí v Bradavicích. Ředitel si při svém nástupu také zvolí svého zástupce.</para>
+                    <para></para>
+                    <para>Škola má sedm ročníků. Předměty se dělí na povinné a povinně volitelné.  Ve třetím ročníku si studenti navíc vybírají minimálně dva povinně volitelné předměty. V pátém ročníku musí všichni studenti skládat zkoušku NKÚ (náležitá kouzelnická úroveň), a poté si vybírají minimálně tři předměty k dalšímu studiu zakončené zkouškou OVCE (ohavně vyčerpávající celočarodějné exameny) v sedmém ročníku.</para>
+                    <para></para>
+                    <para>Mezi povinné předměty patří: přeměňování, obrana proti černé magii, bylinkářství, kouzelné formule, lektvary, dějiny čar a kouzel a astronomie. Volitelné předměty jsou jasnovidectví, péče o kouzelné tvory, věštění z čísel, studium mudlů a starodávné runy. V prvním ročníku mají studenti navíc létání na koštěti a po dovršení plnoletosti (v kouzelném světě je plnoletost od 17 let) i kurz přemisťování. </para>
+                    <para></para>
+                    <para>Studenti jsou v prvním ročníku rozděleni Moudrým kloboukem do čtyř školních kolejí Havraspár, Mrzimor, Nebelvír a Zmijozel. Každá kolej má svůj famfrpálový tým (sport, při kterém se létá na koštěti) složený ze sedmi hráčů (3 střelci, 2 odrážeči, 1 brankář, 1 chytač a z nich je jeden kapitán).</para>
+                    <para></para>
+                    <para>Na začátku pátého ročníku jmenují ředitelé kolejí dva prefekty z řad studentů dané koleje, tedy dohromady osm prefektů. Jeden z nich se na konci ročníku může stát primusem (titul pro nejlepšího prefekta). Prefekti a primusové jsou obvykle ti nejzdatnější studenti, kteří pomáhají učitelům v organizaci školy. </para>
+                    <para></para>
+                    <para></para>
+                    <para>Hlavní entity: </para>
+                    <para></para>
+                    <para>zaměstnanci (ředitel, učitelé, ostatní), adresa, studenti, koleje, předměty (povinné, povinně volitelné), ročník, famfrpálové týmy, hráči (kapitáni, střelci, odrážeči, brankáři, chytači), prefekti, primus </para>
+        </description>
+        <data_model>
+            <title>Conceptual schema</title>
+            <dm_picture>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="conceptual_schema.png"/>
+                    </imageobject>
+                </mediaobject>
+            </dm_picture>
+            <dm_discussion>
+                        <para>Celkem: 10 smyček:</para>
+                        <para></para>
+                        <para>1.  [Kolej - Student - Hráč - Famfrpálový tým] Tato smyčka zde nevadí, jelikož každý student musí patřit do jedné z kolejí. </para>
+                        <para>    Nekteří z těchto studentů však mohou být zároveň hráči famfrpálového týmu, který taky patří do jedné z kolejí. </para>
+                        <para></para>
+                        <para>2.  [Učitel - Předmět - Student - Kolej] Zde vzniká smyčka, protože učitel může být ve vztahu ke studentovi jako vyučující libovolneho předmětu</para>
+                        <para>    a zároveň jako ředitel koleje, ve kterém se student nachází. Jedná se o dvě rozdílné informace, která je potřeba být zachycena v této smyčce.</para>
+                        <para></para>
+                        <para>3.  [Student - Ročník - Předmět] Smyčka nevadí, jelikož student může mít v rozvrhu povinný předměty v ročníku a zároveň jiné povinně volitelné předměty.</para>
+                        <para></para>
+                        <para>4.  [Zaměstnanec - Adresa - Student  - Hráč - Famfrpálový tým - Kolej - Učitel] </para>
+                        <para>			[Zaměstnanec - Adresa - Student - Kolej - Učitel] </para>
+                        <para>			[Zaměstnanec - Adresa - Student - Ročník - Předmět - Učitel] </para>
+                        <para>			[Zaměstnanec - Adresa - Student - Předmět - Učitel] </para>
+                        <para></para>
+                        <para>    Tyto smyčky ve schématu nevadí, jelikož vyjadřuje, že student a zaměstnanec školy mohou oba bydlet na stejné adrese zároveň.</para>
+                        <para></para>
+                        <para>5.  [Kolej - Student - Ročník - Předmět - Učitel] Smyčka zde nevadí, protože student je součástí jednoho koleje, ale může se nacházet v různých ročnících, které mohou obsahovat</para>
+                        <para>    povinné předměty vyucovane ucitelem, který je zároveň ředitelem jednoho z kolejí.</para>
+                        <para></para>
+                        <para>6.  [Ročník - Student - Hráč - Famfrpálový tým - Kolej - Učitel - Předmět] Student zde muze mít dva rozdilné vztahy k učiteli.</para>
+                        <para>    První je přes povinný předmět v ročníku, který učitel vyučuje. Druhý je jako famfrpálový hráč koleje, ve kterém je ředitelem ten samý učitel.</para>
+                        <para></para>
+                        <para>7.  [Předmět - Student - Hráč - Famfrpálový tým - Kolej - Učitel] Stejný případ jako předchozí smyčka císlo 6, akorát zde smyčka neprochazí pres rocník.</para>
+            </dm_discussion>
+        </data_model>
+        <relational_model>
+            <title>Relační schema</title>
+            <rm_picture>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="relational_schema.png"/>
+                    </imageobject>
+                </mediaobject>
+            </rm_picture>
+        </relational_model>
+        <queries>
+            <title>Dotazy</title>
+            <dotazy>
+                    <dotaz dotaz_id="D29">
+                        <popis_dotazu>
+                                <para>Přidej studentovi s ID: 6 do jeho rozvrhu volitelný předmět &#039;Starodávné runy&#039;.</para>
+                        </popis_dotazu>
+                            <sql>INSERT INTO Studuje (Povinne_volitelny_nazev,Student_id_student)
+SELECT nazev,6
+FROM Predmet
+WHERE  nazev=&#039;starodavne runy&#039;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D11">
+                        <popis_dotazu>
+                                <para>Vyber jména a příjmení všech odrážečů ve famfrpálovém týmu koleje Nebelvír.</para>
+                        </popis_dotazu>
+                            <sql>select Student.jmeno, Student.prijmeni FROM Student JOIN Hrac ON(id_student=student_id_student) WHERE Student.kolej_nazev_koleje=&#039;Nebelvir&#039; AND Hrac.pozice=&#039;odrazec&#039;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D12">
+                        <popis_dotazu>
+                                <para>Kolik je studentů v koleji Mrzimor?</para>
+                        </popis_dotazu>
+                            <sql>select count(*) AS pocet_studentu_Mrzimoru FROM Student WHERE Student.kolej_nazev_koleje=&#039;Mrzimor&#039;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D13">
+                        <popis_dotazu>
+                                <para>Vypiš počet studentů jednotlivých kolejí.</para>
+                        </popis_dotazu>
+                            <sql>select kolej_nazev_koleje, Count(id_student) AS pocet_studentu FROM Student GROUP BY kolej_nazev_koleje;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D14">
+                        <popis_dotazu>
+                                <para>Vypiš ID všech studentů, kteří studují všech pět volitelných předmětů.</para>
+                        </popis_dotazu>
+                            <relacni_algebra>Studuje[Student_id_student,Povinne_volitelny_nazev] ÷ Studuje[Povinne_volitelny_nazev]
+</relacni_algebra>
+                            <sql>SELECT DISTINCT Student_id_student
+FROM
+  (SELECT DISTINCT Student_id_student,
+                   Povinne_volitelny_nazev
+   FROM Studuje) MINUS
+SELECT DISTINCT Student_id_student
+FROM
+  (SELECT DISTINCT *
+   FROM
+     (SELECT DISTINCT Student_id_student
+      FROM
+        (SELECT DISTINCT Student_id_student,
+                         Povinne_volitelny_nazev
+         FROM Studuje))
+   CROSS JOIN
+     (SELECT DISTINCT Povinne_volitelny_nazev
+      FROM Studuje) MINUS SELECT DISTINCT Student_id_student,
+                                          Povinne_volitelny_nazev
+   FROM Studuje);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D15">
+                        <popis_dotazu>
+                                <para>Najdi jména, které jsou společné pro nějakého studenta i zaměstnance.</para>
+                        </popis_dotazu>
+                            <sql>select DISTINCT jmeno FROM Student JOIN Zamestnanec USING (jmeno);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D16">
+                        <popis_dotazu>
+                                <para>Vyber ID všech zamestnanců, kteří nejsou učitelé.</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Zamestnanec[id_zamestnanec]}\{Ucitel[zamestnanec_id_zamestnanec]}</relacni_algebra>
+                            <sql>(SELECT DISTINCT *
+   FROM
+     (SELECT DISTINCT id_zamestnanec
+      FROM Zamestnanec)) MINUS
+  (SELECT DISTINCT *
+   FROM
+     (SELECT DISTINCT zamestnanec_id_zamestnanec
+      FROM Ucitel));</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D17">
+                        <popis_dotazu>
+                                <para>Vyber jména a přijmení všech studentů, kteří bydlí na stejné adrese s nějakým zaměstnancem školy.</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Student&lt;*Zamestnanec[adresa_adresa_key]}[jmeno, prijmeni]</relacni_algebra>
+                            <sql>SELECT DISTINCT jmeno,
+                prijmeni
+FROM
+  (SELECT DISTINCT id_student,
+                   jmeno,
+                   prijmeni,
+                   rok_narozeni,
+                   hulka,
+                   sova,
+                   adresa_adresa_key,
+                   rocnik_id_rocnik,
+                   kolej_nazev_koleje
+   FROM Student
+   NATURAL JOIN
+     (SELECT DISTINCT adresa_adresa_key
+      FROM Zamestnanec));</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D18">
+                        <popis_dotazu>
+                                <para>Vyber identifikační klíče všech adres, na kterém bydlí zaměstnanec i student školy. </para>
+                        </popis_dotazu>
+                            <relacni_algebra>Student[adresa_adresa_key]∩Zamestnanec[adresa_adresa_key]</relacni_algebra>
+                            <sql>(SELECT DISTINCT adresa_adresa_key
+   FROM Student) INTERSECT
+  (SELECT DISTINCT adresa_adresa_key
+   FROM Zamestnanec);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D19">
+                        <popis_dotazu>
+                                <para>Vyber všechny roky narození studentů i zaměstnanců.</para>
+                        </popis_dotazu>
+                            <relacni_algebra>Student[rok_narozeni]∪Zamestnanec[rok_narozeni]</relacni_algebra>
+                            <sql>(SELECT DISTINCT rok_narozeni
+   FROM Student)
+UNION
+  (SELECT DISTINCT rok_narozeni
+   FROM Zamestnanec);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D20">
+                        <popis_dotazu>
+                                <para>Najdi zaměstnance s nejvyšším platem.</para>
+                        </popis_dotazu>
+                            <sql>select jmeno, prijmeni FROM Zamestnanec WHERE vyse_platu=(select MAX(vyse_platu) FROM Zamestnanec);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D21">
+                        <popis_dotazu>
+                                <para>Vypiš všechny studenty ve škole a jejich volitelné předměty.</para>
+                        </popis_dotazu>
+                            <sql>select * FROM Student LEFT JOIN Studuje ON(id_student=Student_id_student);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D22">
+                        <popis_dotazu>
+                                <para>Vypiš kouzelnické tituly jednotlivých učitelů podle předmětu.</para>
+                        </popis_dotazu>
+                            <sql>select Ucitel.kouzelnicky_titul, Predmet.nazev FROM Ucitel FULL JOIN Predmet ON(Predmet_nazev=nazev);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D23">
+                        <popis_dotazu>
+                                <para>Vypiš všechny studenty ve škole a u každého uveď počet volitelných předmětů, které mají v rozvrhu.</para>
+                        </popis_dotazu>
+                            <sql>select id_student, jmeno, prijmeni, (select COUNT(*) FROM Studuje WHERE Student_id_student=Student.id_student) AS pocet_volitelnych_predmetu FROM Student;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D24">
+                        <popis_dotazu>
+                                <para>Najdi jména a příjmení studentů, kteří mají alespoň jeden volitelný předmět v rozvrhu. </para>
+                        </popis_dotazu>
+                            <relacni_algebra>{Student &lt;id_student=Student_id_student] Studuje}[jmeno, prijmeni]</relacni_algebra>
+                            <sql>SELECT DISTINCT jmeno,
+                prijmeni
+FROM
+  (SELECT DISTINCT *
+   FROM Student
+   WHERE EXISTS
+       (SELECT 1
+        FROM Studuje
+        WHERE id_student = Student_id_student));</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D25">
+                        <popis_dotazu>
+                                <para>Vytvoř pohled, ve kterém budou jména všech sov, které patří hráčům famfrpálu.</para>
+                        </popis_dotazu>
+                            <sql>CREATE VIEW sovy_hracu_famfrpalu AS select Student.sova FROM Student JOIN Hrac ON(Student.id_student=Hrac.Student_id_student);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D26">
+                        <popis_dotazu>
+                                <para>Vypiš jména všech sov, které patří hráčům famfrpálu.</para>
+                        </popis_dotazu>
+                            <sql>select * FROM sovy_hracu_famfrpalu;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D27">
+                        <popis_dotazu>
+                                <para>Smaž studentovi s ID: 436 volitelný předmět &#039;jasnovidectví&#039; z jeho rozvrhu.</para>
+                        </popis_dotazu>
+                            <sql>DELETE FROM Studuje
+WHERE Povinne_volitelny_nazev=&#039;jasnovidectvi&#039; AND Student_id_student=(select id_student FROM Student WHERE id_student=436);
+commit;
+</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D28">
+                        <popis_dotazu>
+                                <para>Zvýšit plat zamestnance s ID: 73 o 15%. </para>
+                        </popis_dotazu>
+                            <sql>select vyse_platu AS predtim FROM Zamestnanec WHERE id_zamestnanec=&#039;73&#039;;
+UPDATE Zamestnanec 
+SET vyse_platu = vyse_platu * 1.15
+WHERE (SELECT id_zamestnanec FROM Zamestnanec WHERE jmeno=&#039;Albus&#039; AND prijmeni=&#039;Brumbal&#039;)=73;
+select vyse_platu AS nyni FROM Zamestnanec WHERE id_zamestnanec=&#039;73&#039;;
+</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D30">
+                        <popis_dotazu>
+                                <para>Vyber jména všech sov, které patří studentům koleje &#039;Nebelvír&#039;.</para>
+                        </popis_dotazu>
+                            <sql>select sova FROM Student WHERE Kolej_nazev_koleje=&#039;Nebelvir&#039;;
+select Student.sova FROM Kolej JOIN Student ON(nazev_koleje=Kolej_nazev_koleje) WHERE Kolej_nazev_koleje=&#039;Nebelvir&#039;;
+select sova FROM Student WHERE Kolej_nazev_koleje!=&#039;Zmijozel&#039; AND Kolej_nazev_koleje!=&#039;Havraspar&#039; AND Kolej_nazev_koleje!=&#039;Mrzimor&#039;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D31">
+                        <popis_dotazu>
+                                <para>Vypiš všechny koleje kromě Nebelvíru a u každého uveď počet studentů dané koleje. Následně je srovnej ve sloupci abecedně podle počátečních písmen názvů kolejí.</para>
+                        </popis_dotazu>
+                            <sql>select kolej_nazev_koleje, pocet_studentu FROM (select kolej_nazev_koleje, Count(id_student) AS pocet_studentu FROM Student GROUP BY kolej_nazev_koleje HAVING Count(id_student)&gt;1) WHERE kolej_nazev_koleje!=&#039;Nebelvir&#039; ORDER BY kolej_nazev_koleje;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D32">
+                        <popis_dotazu>
+                                <para>Vyber jména a příjmení studentů, kteří nebydlí ve městě Liberec.</para>
+                        </popis_dotazu>
+                            <sql>select jmeno, prijmeni FROM Student JOIN Adresa ON(Adresa_adresa_key=adresa_key) WHERE Adresa.mesto!=&#039;Liberec&#039;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D33">
+                        <popis_dotazu>
+                                <para>Vypiš jména a příjmení studentů, kteří navštěvují pouze první, nebo druhý ročník, tudíž mají v rozvrhu pouze povinné předměty. </para>
+                        </popis_dotazu>
+                            <sql>select jmeno, prijmeni FROM Student WHERE Rocnik_id_rocnik=&#039;1&#039; OR Rocnik_id_rocnik=&#039;2&#039;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D34">
+                        <popis_dotazu>
+                                <para>Vypiš jména a příjmení všech studentů, kteří studují všech pět volitelných předmětů.</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{ { Studuje[Student_id_student,Povinne_volitelny_nazev] ÷ Studuje[Povinne_volitelny_nazev] } [Student_id_student=ID_STUDENT&gt; STUDENT }[JMENO,PRIJMENI]</relacni_algebra>
+                            <sql>select Student.jmeno, Student.prijmeni FROM Student JOIN (select DISTINCT Student.id_student, Count(Studuje.povinne_volitelny_nazev) AS pocet_volitelnych_predmetu FROM Student JOIN Studuje ON(id_student=Student_id_student) GROUP BY Student.id_student) USING(id_student) WHERE pocet_volitelnych_predmetu=5;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D35">
+                        <popis_dotazu>
+                                <para>Kontrola výsledku dotazu z kategorie D1: (všechny volitelné předměty od studentky Eliska Syrovatka) MINUS (všechny volitelné předměty).</para>
+                        </popis_dotazu>
+                            <sql>(select Studuje.Povinne_volitelny_nazev FROM Student JOIN Studuje ON(id_student=Student_id_student) WHERE jmeno=&#039;Eliska&#039; AND prijmeni=&#039;Syrovatka&#039;) MINUS (select Povinne_volitelny_nazev FROM Studuje);</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D36">
+                        <popis_dotazu>
+                                <para>Vyber všechny druhy košťat, se kterým létají všichni odrážeči ve všech famfrpálových týmech. </para>
+                        </popis_dotazu>
+                            <relacni_algebra>Hrac(pozice=&#039;odrazec&#039;)[koste]</relacni_algebra>
+                            <sql>SELECT DISTINCT koste
+FROM Hrac
+WHERE pozice = &#039;odrazec&#039;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D37">
+                        <popis_dotazu>
+                                <para>Vypiš patrony jednotlivých kolejí v Bradavicích.</para>
+                        </popis_dotazu>
+                            <relacni_algebra>Kolej[nazev_koleje, patron]</relacni_algebra>
+                            <sql>SELECT DISTINCT nazev_koleje,
+                patron
+FROM Kolej;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D38">
+                        <popis_dotazu>
+                                <para>Jakou přezdívku má famfrpálový tým koleje Mrzimor?</para>
+                        </popis_dotazu>
+                            <relacni_algebra>FamfrpalT(kolej_nazev_koleje=&#039;Mrzimor&#039;)[prezdivka]</relacni_algebra>
+                            <sql>SELECT DISTINCT prezdivka
+FROM FamfrpalT
+WHERE kolej_nazev_koleje = &#039;Mrzimor&#039;;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D39">
+                        <popis_dotazu>
+                                <para>Jaký kouzelnický titul má ředitel školy?</para>
+                        </popis_dotazu>
+                            <relacni_algebra>Reditel[kouzelnicky_titul]</relacni_algebra>
+                            <sql>SELECT DISTINCT kouzelnicky_titul
+FROM Reditel;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D40">
+                        <popis_dotazu>
+                                <para>Jakou přezdívku má primus školy?</para>
+                        </popis_dotazu>
+                            <relacni_algebra>Primus[prezdivka]</relacni_algebra>
+                            <sql>SELECT DISTINCT prezdivka
+FROM Primus;</sql>
+                    </dotaz>
+                    <dotaz dotaz_id="D41">
+                        <popis_dotazu>
+                                <para>Vsichni studenti, kteri nejsou prefekti a zaroven hraci famrpalu.</para>
+                        </popis_dotazu>
+                            <relacni_algebra>STUDENT \ { { STUDENT &lt;ID_STUDENT=STUDENT_ID_STUDENT] HRAC } ∩ { STUDENT &lt;ID_STUDENT=STUDENT_ID_STUDENT] PREFEKT } } </relacni_algebra>
+                    </dotaz>
+                    <dotaz dotaz_id="D42">
+                        <popis_dotazu>
+                                <para>Vypiš famfrpálové týmy, které obsahuji POUZE hráče, se studentským ID menší než 131.</para>
+                        </popis_dotazu>
+                            <relacni_algebra>{ HRAC(STUDENT_ID_STUDENT&lt;131) [FAMFRPALT_KOLEJ_NAZEV_KOLEJE=KOLEJ_NAZEV_KOLEJE&gt; FAMFRPALT } \ { HRAC(STUDENT_ID_STUDENT&gt;=131) [FAMFRPALT_KOLEJ_NAZEV_KOLEJE=KOLEJ_NAZEV_KOLEJE&gt; FAMFRPALT }        </relacni_algebra>
+                    </dotaz>
+            </dotazy>
+            <pokryti_dotazu>
+                        <radek>
+                            <kategorie>A</kategorie>
+                            <odkazy>
+                                    <link url="#D11">D11</link>
+                                    <link url="#D15">D15</link>
+                                    <link url="#D17">D17</link>
+                                    <link url="#D21">D21</link>
+                                    <link url="#D22">D22</link>
+                                    <link url="#D25">D25</link>
+                                    <link url="#D34">D34</link>
+                                    <link url="#D35">D35</link>
+                            </odkazy>
+                            <kategorie_popis>A - Pozitivní dotaz nad spojením alespoň dvou tabulek</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>AR</kategorie>
+                            <odkazy>
+                                    <link url="#D17">D17</link>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>A (RA) - Pozitivní dotaz nad spojením alespoň dvou tabulek</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>B</kategorie>
+                            <odkazy>
+                                    <link url="#D32">D32</link>
+                            </odkazy>
+                            <kategorie_popis>B - Negativní dotaz nad spojením alespoň dvou tabulek</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>BN</kategorie>
+                            <odkazy>
+                                    <link url="#D32">D32</link>
+                                    <link url="#D41">D41</link>
+                            </odkazy>
+                            <kategorie_popis>B (NATURAL) - Negativní dotaz nad spojením alespoň dvou tabulek</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>BR</kategorie>
+                            <odkazy>
+                                    <link url="#D41">D41</link>
+                            </odkazy>
+                            <kategorie_popis>B (RA) - Negativní dotaz nad spojením alespoň dvou tabulek</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>C</kategorie>
+                            <odkazy>
+                                    <link url="#D33">D33</link>
+                            </odkazy>
+                            <kategorie_popis>C - Vyber ty, kteří mají vztah POUZE k ...</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>CN</kategorie>
+                            <odkazy>
+                                    <link url="#D33">D33</link>
+                                    <link url="#D42">D42</link>
+                            </odkazy>
+                            <kategorie_popis>C (NATURAL) - Vyber ty, kteří mají vztah POUZE k ...</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>CR</kategorie>
+                            <odkazy>
+                                    <link url="#D42">D42</link>
+                            </odkazy>
+                            <kategorie_popis>C (RA) - Vyber ty, kteří mají vztah POUZE k ...</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>D1</kategorie>
+                            <odkazy>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>D1 - Vyber ty, kteří/které jsou ve vztahu se všemi - dotaz s univerzální kvantifikací</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>D2</kategorie>
+                            <odkazy>
+                                    <link url="#D35">D35</link>
+                            </odkazy>
+                            <kategorie_popis>D2 - Kontrola výsledku dotazu z kategorie D1</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F1</kategorie>
+                            <odkazy>
+                                    <link url="#D11">D11</link>
+                                    <link url="#D25">D25</link>
+                                    <link url="#D30">D30</link>
+                                    <link url="#D32">D32</link>
+                                    <link url="#D34">D34</link>
+                                    <link url="#D35">D35</link>
+                            </odkazy>
+                            <kategorie_popis>F1 - JOIN ON</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F1R</kategorie>
+                            <odkazy>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>F1 (RA) - JOIN ON</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F2</kategorie>
+                            <odkazy>
+                                    <link url="#D15">D15</link>
+                                    <link url="#D17">D17</link>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>F2 - NATURAL JOIN|JOIN USING</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F2R</kategorie>
+                            <odkazy>
+                                    <link url="#D17">D17</link>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>F2 (RA) - NATURAL JOIN|JOIN USING</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F3</kategorie>
+                            <odkazy>
+                                    <link url="#D14">D14</link>
+                            </odkazy>
+                            <kategorie_popis>F3 - CROSS JOIN</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F4</kategorie>
+                            <odkazy>
+                                    <link url="#D21">D21</link>
+                            </odkazy>
+                            <kategorie_popis>F4 - LEFT|RIGHT OUTER JOIN</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>F5</kategorie>
+                            <odkazy>
+                                    <link url="#D22">D22</link>
+                            </odkazy>
+                            <kategorie_popis>F5 - FULL (OUTER) JOIN</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G1</kategorie>
+                            <odkazy>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D24">D24</link>
+                                    <link url="#D27">D27</link>
+                                    <link url="#D28">D28</link>
+                            </odkazy>
+                            <kategorie_popis>G1 - Vnořený dotaz v klauzuli WHERE</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G1R</kategorie>
+                            <odkazy>
+                                    <link url="#D24">D24</link>
+                            </odkazy>
+                            <kategorie_popis>G1 (RA) - Vnořený dotaz v klauzuli WHERE</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G2</kategorie>
+                            <odkazy>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D16">D16</link>
+                                    <link url="#D17">D17</link>
+                                    <link url="#D24">D24</link>
+                                    <link url="#D31">D31</link>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>G2 - Vnořený dotaz v klauzuli FROM</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G2R</kategorie>
+                            <odkazy>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D16">D16</link>
+                                    <link url="#D17">D17</link>
+                                    <link url="#D24">D24</link>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>G2 (RA) - Vnořený dotaz v klauzuli FROM</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G3</kategorie>
+                            <odkazy>
+                                    <link url="#D23">D23</link>
+                            </odkazy>
+                            <kategorie_popis>G3 - Vnořený dotaz v klauzuli SELECT</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>G4</kategorie>
+                            <odkazy>
+                                    <link url="#D24">D24</link>
+                            </odkazy>
+                            <kategorie_popis>G4 - Vztažený vnořený dotaz (EXISTS, NOT EXISTS)</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>H1</kategorie>
+                            <odkazy>
+                                    <link url="#D19">D19</link>
+                            </odkazy>
+                            <kategorie_popis>H1 - Množinové sjednocení - UNION</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>H2</kategorie>
+                            <odkazy>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D16">D16</link>
+                                    <link url="#D35">D35</link>
+                            </odkazy>
+                            <kategorie_popis>H2 - Množinový rozdíl - MINUS nebo EXCEPT</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>H2R</kategorie>
+                            <odkazy>
+                                    <link url="#D14">D14</link>
+                                    <link url="#D16">D16</link>
+                            </odkazy>
+                            <kategorie_popis>H2 (RA) - Množinový rozdíl - MINUS nebo EXCEPT</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>H3</kategorie>
+                            <odkazy>
+                                    <link url="#D18">D18</link>
+                            </odkazy>
+                            <kategorie_popis>H3 - Množinový průnik - INTERSECT</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>I1</kategorie>
+                            <odkazy>
+                                    <link url="#D12">D12</link>
+                                    <link url="#D13">D13</link>
+                                    <link url="#D20">D20</link>
+                                    <link url="#D23">D23</link>
+                                    <link url="#D31">D31</link>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>I1 - Agregační funkce (count|sum|min|max|avg)</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>I1R</kategorie>
+                            <odkazy>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>I1 (RA) - Agregační funkce (count|sum|min|max|avg)</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>I2</kategorie>
+                            <odkazy>
+                                    <link url="#D13">D13</link>
+                                    <link url="#D31">D31</link>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>I2 - Agregační funkce nad seskupenými řádky - GROUP BY (HAVING)</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>I2R</kategorie>
+                            <odkazy>
+                                    <link url="#D34">D34</link>
+                            </odkazy>
+                            <kategorie_popis>I2 (RA) - Agregační funkce nad seskupenými řádky - GROUP BY (HAVING)</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>J</kategorie>
+                            <odkazy>
+                                    <link url="#D30">D30</link>
+                            </odkazy>
+                            <kategorie_popis>J - Stejný dotaz ve třech různých formulacích SQL</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>K</kategorie>
+                            <odkazy>
+                                    <link url="#D31">D31</link>
+                            </odkazy>
+                            <kategorie_popis>K - Všechny klauzule v 1 dotazu - SELECT FROM WHERE GROUP BY HAVING ORDER BY</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>L</kategorie>
+                            <odkazy>
+                                    <link url="#D25">D25</link>
+                            </odkazy>
+                            <kategorie_popis>L - VIEW</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>M</kategorie>
+                            <odkazy>
+                                    <link url="#D26">D26</link>
+                            </odkazy>
+                            <kategorie_popis>M - Dotaz nad pohledem</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>N</kategorie>
+                            <odkazy>
+                                    <link url="#D29">D29</link>
+                            </odkazy>
+                            <kategorie_popis>N - INSERT, který vloží do některé tabulky množinu řádků, které jsou vybrány dotazem z vybraných tabulek (příkaz INSERT, ve kterém je klauzule VALUES nahrazena vnořeným poddotazem.</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>O</kategorie>
+                            <odkazy>
+                                    <link url="#D28">D28</link>
+                            </odkazy>
+                            <kategorie_popis>O - UPDATE s vnořeným SELECT příkazem</kategorie_popis>
+                        </radek>
+                        <radek>
+                            <kategorie>P</kategorie>
+                            <odkazy>
+                                    <link url="#D27">D27</link>
+                            </odkazy>
+                            <kategorie_popis>P - DELETE s vnořeným SELECT příkazem</kategorie_popis>
+                        </radek>
+            </pokryti_dotazu>
+        </queries>
+        <scripts>
+            <title>Scripts</title>
+            <para>
+                <link url="./create.sql">create.sql</link>
+            </para>
+            <para>
+                <link url="./insert.sql">insert.sql</link>
+            </para>
+        </scripts>
+        <conclussions>
+            <title>Závěr</title>
+                    <para>Tato semestrální práce byla dobrá příležitost, jak se naučit základy databáze. Pro člověka jako já, který nikdy předtím s databází nepřišel do styku, to byla skvělá zkušenost a získal jsem spoustu nových znalostí a vědomosti. Semestrální práce byla zábavná, praktická a velice užitečná. Všichni vyučující byli velmi vstřícní a ochotni pomoct všem. Portál DBS se jim velice povedl, je přehledný a dobře se na něm pracuje. Jinak celkově je tento předmět jeden z nejzajímavějších a nejužitečnějších, které jsem zatím na FITu absolvoval. </para>
+                    <para></para>
+                    <para></para>
+                    <para></para>
+                    <para></para>
+                    <para></para>
+                    <para></para>
+                    <para></para>
+        </conclussions>
+        <references>
+            <title>Zdroje</title>
+                    <para>J. K. Rowlingová - Harry Potter (všechny díly)</para>
+                    <para></para>
+                    <para>Wikipedie: </para>
+                    <para>https://cs.wikipedia.org/wiki/%C5%A0kola_%C4%8Dar_a_kouzel_v_Bradavic%C3%ADch ;</para>
+                    <para>https://cs.wikipedia.org/wiki/Famfrp%C3%A1l</para>
+                    <para></para>
+                    <para>Ukázkové semestrální práce na Courses: https://courses.fit.cvut.cz/BI-DBS/project/example.html  </para>
+        </references>
+    </content>
+</sproject>
