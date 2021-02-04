@@ -5,7 +5,7 @@ Databse about the structure of Hogwarts School of Witchcraft and Wizardry from H
 
 # CZ:
 
-Databáze o struktuře Školy čar a kouzel v Bradavicích ze sérií knih Harryho Pottera od J. K. Rowlingové. Tato databáze je moje semestrální práce pro předmět Databázové Systémy (BI-DBS) na [FIT ČVUT](https://fit.cvut.cz/cs) v Praze 2018.
+Databáze o struktuře Školy čar a kouzel v Bradavicích ze sérií knih Harryho Pottera od J. K. Rowlingové. Tato databáze je moje semestrální práce pro předmět Databázové Systémy (BI-DBS) na [FIT ČVUT v Praze](https://fit.cvut.cz/cs) 2018.
 
 # Konceptuální schéma:
 
